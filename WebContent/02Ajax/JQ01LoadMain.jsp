@@ -24,7 +24,7 @@ $(function(){
 	$('#loadParamBtn').click(function(){
 		//체크한 radio버튼의 값을 가져온다
 		var radioVar = $('input[type="radio"][name="params"]:checked').val();
-		//위의 값을 이용해서 파라미터를 만든다. 이때 파라미터는 JSON으로 기술한다
+		//위의 값을 이용해서 파라미터를 만든다. 이때 파라미터는 항상! JSON으로 기술한다
 		var params = {"params":radioVar};
 		//파라미터를 전달하면서 jsp문서를 로드한다
 		$('#loadParam').load('./common/01LoadParam.jsp', params);
