@@ -15,13 +15,43 @@ $(function(){
 			dataType: "get",
 			data: {
 				keyword : $('#keyword').val(),
-				startNum : $('#startNum option:selected').val()
+				startNum : $('#startNum option:selected').val(),
+				display : $('#display option:selected').val()
 			},
 			dataType : "json",
 			success : sucFuncJson,
 			error : errFunc
 		});
 	});	
+	//추가된 부분
+	$('#startNum').change(function(){
+		$.ajax({
+			url: "../NaverSearchAPI.do",
+			dataType: "get",
+			data: {
+				keyword : $('#keyword').val(),
+				startNum : $('#startNum option:selected').val(),
+				display : $('#display option:selected').val()
+			},
+			dataType : "json",
+			success : sucFuncJson,
+			error : errFunc
+		});
+	});
+	$('#display').change(function(){
+		$.ajax({
+			url: "../NaverSearchAPI.do",
+			dataType: "get",
+			data: {
+				keyword : $('#keyword').val(),
+				startNum : $('#startNum option:selected').val(),
+				display : $('#display option:selected').val()
+			},
+			dataType : "json",
+			success : sucFuncJson,
+			error : errFunc
+		});
+	});
 });
 function sucFuncJson(d){
 	//alert("성공:" + d);
@@ -29,12 +59,14 @@ function sucFuncJson(d){
 	
 	$.each(d.items, function(index, item){
 		str += "<ul>";
+		str += "<li>" + (index + 1) + "</li>";
 		str += "<li>" + item.title + "</li>";
 		str += "<li>" + item.description + "</li>";
 		str += "<li>" + item.bloggername + "</li>";
 		str += "<li>" + item.bloggerlink + "</li>";
 		str += "<li>" + item.postdate + "</li>";
-		str += "<li><a href='" + item.link + "'</a></li>";
+		str += "<li><a href='" + item.link + "' "
+		str += "	target='_blank'>바로가기</a></li>";
 		str += "</ul>";
 	});
 	
@@ -71,9 +103,14 @@ function errFunc(e){
 				<option value="81">5페이지</option>
 			</select>
 			
+			<select id="display">
+				<option value="5">5개씩보기</option>
+				<option value="10">10개씩보기</option>
+				<option value="20">20개씩보기</option>
+			</select>
+			
 			<input type="text" id="keyword" value="검색어" />
-			<button type="button" class="btn btn-info"
-				id="searchBtn">
+			<button type="button" class="btn btn-info" id="searchBtn">
 				Naver검색API요청하기
 			</button>		
 		</form>	

@@ -25,15 +25,26 @@ public class NaverSearchAPI extends HttpServlet{
         String clientSecret = "MmK0Hy4Ztz"; //애플리케이션 클라이언트 시크릿값"
 
         String text = null;
+        String start = null;
+        String display = null;
+        int startNum = 1;//추가된 부분
         try {
         	//jsp페이지에서 입력한 검색어를 받아와서 변수처리
         	String searchTxt = req.getParameter("keyword");
+        	
+        	display = req.getParameter("display");//추가된 부분
+        	startNum = Integer.parseInt(req.getParameter("startNum"));//추가된 부분
+        	
             text = URLEncoder.encode(searchTxt, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
+        } 
+        catch (UnsupportedEncodingException e) {
             throw new RuntimeException("검색어 인코딩 실패",e);
         }
 
-        String apiURL = "https://openapi.naver.com/v1/search/blog?query=" + text;    // json 결과
+        String apiURL = 
+        "https://openapi.naver.com/v1/search/blog?query=" + text + "&display="+ display + "&start=" + startNum;// json 결과
+        //쿼리스트링에 display와 start추가함
+        
         //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
 
         Map<String, String> requestHeaders = new HashMap<>();
